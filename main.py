@@ -11,7 +11,7 @@ def get_data_from_db():
 def view_data_from_db():
     con = sqlite3.connect('test_data.sqlite')
     cursorObj = con.cursor()
-    all_data=cursorObj.execute('SELECT * FROM Request ').fetchall()
+    all_data = cursorObj.execute('SELECT * FROM Request ').fetchall()
     for data in all_data:
         print(data)
 
@@ -43,7 +43,7 @@ def write_data_to_csv(write_data):
     print("Writing complete")
 
 
-def generate_graph(const_remainder, reates, time):
+def generate_graph(const_remainder, rates, time):
     data = ["Месяц", "Ежемесячный платеж", "Основной долг", "Долг по процентам", "Остаток"]
 
     arr_for_data = [data]
@@ -67,10 +67,10 @@ def generate_graph(const_remainder, reates, time):
     write_data_to_csv(arr_for_data)
 
 
-request_from_db = get_data_from_db()
-rates = request_from_db[0][4]
-const_remainder = request_from_db[0][3]
-time = int(request_from_db[0][6].split(' ')[0])
+# request_from_db = get_data_from_db()
+# rates = request_from_db[0][4]
+# const_remainder = request_from_db[0][3]
+# time = int(request_from_db[0][6].split(' ')[0])
 
 
 def get_data(request_number):
@@ -81,5 +81,8 @@ def get_data(request_number):
     generate_graph(const_remainder, rates, time)
 
 
-view_data_from_db()
-get_data(1)
+def main():
+    view_data_from_db()
+    get_data(5)
+
+main()
