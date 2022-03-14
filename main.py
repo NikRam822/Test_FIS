@@ -8,6 +8,14 @@ def get_data_from_db():
     return cursorObj.execute('SELECT * FROM Request ').fetchall()
 
 
+def view_data_from_db():
+    con = sqlite3.connect('test_data.sqlite')
+    cursorObj = con.cursor()
+    all_data=cursorObj.execute('SELECT * FROM Request ').fetchall()
+    for data in all_data:
+        print(data)
+
+
 def main_debt(monthly_payment, interest_debts):
     return monthly_payment - interest_debts
 
@@ -64,4 +72,14 @@ rates = request_from_db[0][4]
 const_remainder = request_from_db[0][3]
 time = int(request_from_db[0][6].split(' ')[0])
 
-generate_graph(const_remainder, rates, time)
+
+def get_data(request_number):
+    request_from_db = get_data_from_db()
+    rates = request_from_db[request_number - 1][4]
+    const_remainder = request_from_db[request_number - 1][3]
+    time = int(request_from_db[request_number - 1][6].split(' ')[0])
+    generate_graph(const_remainder, rates, time)
+
+
+view_data_from_db()
+get_data(1)
